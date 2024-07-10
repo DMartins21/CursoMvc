@@ -1,4 +1,6 @@
 ﻿using Lanches.Context;
+using Lanches.Repositories;
+using Lanches.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 using Microsoft.Extensions.Options;
@@ -17,6 +19,8 @@ public class Startup
     {
         services.AddControllersWithViews();
         services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        services.AddTransient<IProdutoRepository, ProdutoRepository>();
+        services.AddTransient<ICategoriaRepository, CategoriaRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
